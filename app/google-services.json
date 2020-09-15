@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "497011850962",
+    "firebase_url": "https://location-tracker-kotlin.firebaseio.com",
+    "project_id": "location-tracker-kotlin",
+    "storage_bucket": "location-tracker-kotlin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497011850962:android:4522b5fbbcbafba223370b",
+        "android_client_info": {
+          "package_name": "com.example.locationtrackerkotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497011850962-k6he3ekro6ub91bek82j979oe58edb29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbR_nsIEjh-vRobHnJPW1rbLGnAp3Lcfo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497011850962-k6he3ekro6ub91bek82j979oe58edb29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

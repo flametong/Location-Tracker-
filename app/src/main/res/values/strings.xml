@@ -1,3 +1,28 @@
 <resources>
-    <string name="app_name">Location Tracker (Kotlin)</string>
+    <string name="app_name">Location Tracker</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="sign_up">Sign up</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="create_a_new_account">Create a new account</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="logout">Logout</string>
+    <string name="tracker_launched">Tracker launched</string>
+    <string name="collection_user_locations">User locations</string>
+    <string name="start_service">Start Service</string>
+    <string name="service_already_running">Service is already running</string>
+    <string name="service_start_successfully">Service start successfully</string>
+    <string name="gps_enable">GPS enable</string>
+    <string name="please_turn_on_gps">Please turn on GPS</string>
+    <string name="ok">OK</string>
+    <string name="launch_tracker">Launch tracker</string>
+    <string name="stop_tracker">Stop tracker</string>
+    <string name="tracker_stopped">Tracker stopped</string>
+    <string name="login_successful">Login successful</string>
+    <string name="login_failed">Login failed</string>
+    <string name="validate_error">Fill in all the fields</string>
+    <string name="sign_up_successful">Sign Up successful</string>
+    <string name="sign_up_error">Sign Up error</string>
+    <string name="password_mismatch">Password mismatch</string>
 </resources>
