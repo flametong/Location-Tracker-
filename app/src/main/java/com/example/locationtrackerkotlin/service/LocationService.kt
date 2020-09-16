@@ -49,8 +49,8 @@ class LocationService(
             App.context.getString(R.string.notification_channel_name)
         private val LOCATION_CHANNEL_DESCRIPTION =
             App.context.getString(R.string.location_channel_description)
-        private const val INTERVAL: Long = 1000 * 1 * 15 // 15 min
-        private const val FASTEST_INTERVAL: Long = 1000 * 1 * 10 // 10 min
+        private const val INTERVAL: Long = 1000 * 60 * 15 // 15 min
+        private const val FASTEST_INTERVAL: Long = 1000 * 60 * 10 // 10 min
     }
 
     private lateinit var mLocationCallback: LocationCallback
