@@ -6,4 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".activity.TrackerActivity">
 
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/default_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLaunchTracker"
+            style="@style/ButtonStyle"
+            android:text="@string/launch_tracker" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStopTracker"
+            style="@style/ButtonStyle"
+            android:text="@string/stop_tracker" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSignOut"
+            style="@style/ButtonStyle"
+            android:text="@string/sign_out" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

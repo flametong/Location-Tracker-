@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.example.locationtrackerkotlin.mvp.view.LoginView
+import com.example.locationtrackerkotlin.util.Constants
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginPresenterImpl(private val mAuth: FirebaseAuth) :
@@ -23,11 +24,6 @@ class LoginPresenterImpl(private val mAuth: FirebaseAuth) :
         const val PERMISSION_REQUEST_LOCATION = 1
         val CURRENT_VERSION = Build.VERSION.SDK_INT
         const val VERSION_Q = Build.VERSION_CODES.Q
-        const val ACCESS_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
-
-        @RequiresApi(Build.VERSION_CODES.Q)
-        const val ACCESS_BACKGROUND_LOCATION =
-            Manifest.permission.ACCESS_BACKGROUND_LOCATION
     }
 
     private var mView: LoginView? = null
@@ -55,7 +51,7 @@ class LoginPresenterImpl(private val mAuth: FirebaseAuth) :
             if (mView?.getContext()?.let {
                     ActivityCompat.checkSelfPermission(
                         it,
-                        ACCESS_FINE_LOCATION
+                        Constants.ACCESS_FINE_LOCATION
                     )
                 } == PackageManager.PERMISSION_GRANTED) {
                 Log.d(TAG, "Permission granted")
@@ -66,7 +62,7 @@ class LoginPresenterImpl(private val mAuth: FirebaseAuth) :
             if (mView?.getContext()?.let {
                     ActivityCompat.checkSelfPermission(
                         it,
-                        ACCESS_BACKGROUND_LOCATION
+                        Constants.ACCESS_BACKGROUND_LOCATION
                     )
                 } == PackageManager.PERMISSION_GRANTED) {
                 Log.d(TAG, "Permission granted")
@@ -80,27 +76,27 @@ class LoginPresenterImpl(private val mAuth: FirebaseAuth) :
     private fun requestLocationPermission() {
         if (CURRENT_VERSION < VERSION_Q) {
             if (!ActivityCompat.shouldShowRequestPermissionRationale(
-                    mView as Activity, ACCESS_FINE_LOCATION
+                    mView as Activity, Constants.ACCESS_FINE_LOCATION
                 )
             ) {
                 ActivityCompat.requestPermissions(
                     mView as Activity,
                     arrayOf(
-                        ACCESS_FINE_LOCATION
+                        Constants.ACCESS_FINE_LOCATION
                     ),
                     PERMISSION_REQUEST_LOCATION
                 )
             }
         } else {
             if (!ActivityCompat.shouldShowRequestPermissionRationale(
-                    mView as Activity, ACCESS_FINE_LOCATION
+                    mView as Activity, Constants.ACCESS_FINE_LOCATION
                 )
             ) {
                 ActivityCompat.requestPermissions(
                     mView as Activity,
                     arrayOf(
-                        ACCESS_FINE_LOCATION,
-                        ACCESS_BACKGROUND_LOCATION
+                        Constants.ACCESS_FINE_LOCATION,
+                        Constants.ACCESS_BACKGROUND_LOCATION
                     ),
                     PERMISSION_REQUEST_LOCATION
                 )

@@ -10,8 +10,6 @@ import javax.inject.Inject
 
 class SplashScreen : AppCompatActivity() {
 
-    private var TAG = SplashScreen::class.simpleName
-
     @Inject
     lateinit var mAuth: FirebaseAuth
 
