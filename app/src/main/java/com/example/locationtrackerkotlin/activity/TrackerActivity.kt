@@ -3,7 +3,6 @@ package com.example.locationtrackerkotlin.activity
 import android.content.Context
 import android.content.Intent
 import android.location.LocationManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.locationtrackerkotlin.App
@@ -12,27 +11,34 @@ import com.example.locationtrackerkotlin.databinding.ActivityTrackerBinding
 import com.example.locationtrackerkotlin.dialog.LocationRequestDialog
 import com.example.locationtrackerkotlin.mvp.presenter.TrackerPresenterImpl
 import com.example.locationtrackerkotlin.mvp.view.TrackerView
-import com.example.locationtrackerkotlin.room.AppDatabase
 import com.example.locationtrackerkotlin.util.Constants
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.google.firebase.auth.FirebaseAuth
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class TrackerActivity : AppCompatActivity(), TrackerView {
+class TrackerActivity : MvpAppCompatActivity(), TrackerView {
 
     private lateinit var binding: ActivityTrackerBinding
 
     @Inject
+    lateinit var mAuth: FirebaseAuth
+
+    @InjectPresenter
     lateinit var mPresenter: TrackerPresenterImpl
 
+    @ProvidePresenter
+    fun provideTrackerPresenter(): TrackerPresenterImpl {
+        return TrackerPresenterImpl(mAuth)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         App.appComponent.inject(this)
+        super.onCreate(savedInstanceState)
+
         binding = ActivityTrackerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        lifecycle.addObserver(mPresenter)
-        mPresenter.attachView(this)
 
         // Start location tracker
         binding.btnLaunchTracker.setOnClickListener {
@@ -48,6 +54,12 @@ class TrackerActivity : AppCompatActivity(), TrackerView {
         binding.btnSignOut.setOnClickListener {
             mPresenter.signOutUser()
         }
+    }
+
+    // Request if user doesn't provide the location
+    override fun onStart() {
+        super.onStart()
+        mPresenter.requestLocationDialog()
     }
 
     // Go to LoginActivity after sign out
@@ -98,9 +110,5 @@ class TrackerActivity : AppCompatActivity(), TrackerView {
             this, R.string.tracker_stopped,
             Toast.LENGTH_SHORT
         ).show()
-    }
-
-    override fun getContext(): Context {
-        return this
     }
 }

@@ -1,8 +1,11 @@
 package com.example.locationtrackerkotlin.mvp.view
 
-import com.example.locationtrackerkotlin.mvp.base.BaseView
+import moxy.MvpView
+import moxy.viewstate.strategy.AddToEndSingleTagStrategy
+import moxy.viewstate.strategy.StateStrategyType
 
-interface SignUpView: BaseView {
+@StateStrategyType(AddToEndSingleTagStrategy::class)
+interface SignUpView: MvpView {
     fun showSignUpSuccess()
     fun showSignUpError()
     fun showValidateError()

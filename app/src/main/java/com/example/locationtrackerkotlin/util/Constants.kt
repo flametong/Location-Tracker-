@@ -15,4 +15,6 @@ object Constants {
     var ACCESS_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
     @RequiresApi(Build.VERSION_CODES.Q)
     var ACCESS_BACKGROUND_LOCATION = Manifest.permission.ACCESS_BACKGROUND_LOCATION
+    val CURRENT_VERSION = Build.VERSION.SDK_INT
+    const val VERSION_Q = Build.VERSION_CODES.Q
 }

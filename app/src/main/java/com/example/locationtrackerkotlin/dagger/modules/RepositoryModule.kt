@@ -21,10 +21,4 @@ class RepositoryModule {
             Constants.DATABASE_NAME
         ).build()
     }
-
-    @Provides
-    @Singleton
-    fun provideFirebaseFirestore(): FirebaseFirestore {
-        return FirebaseFirestore.getInstance()
-    }
 }

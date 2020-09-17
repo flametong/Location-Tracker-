@@ -1,32 +1,39 @@
 package com.example.locationtrackerkotlin.activity
 
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.locationtrackerkotlin.App
 import com.example.locationtrackerkotlin.R
 import com.example.locationtrackerkotlin.databinding.ActivitySignUpBinding
-import com.example.locationtrackerkotlin.mvp.presenter.SignUpPresenterImpl
+import com.example.locationtrackerkotlin.mvp.presenter.SignUpPresenter
 import com.example.locationtrackerkotlin.mvp.view.SignUpView
+import com.google.firebase.auth.FirebaseAuth
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
-class SignUpActivity : AppCompatActivity(), SignUpView {
+class SignUpActivity : MvpAppCompatActivity(), SignUpView {
 
     private lateinit var binding: ActivitySignUpBinding
 
     @Inject
-    lateinit var mPresenter: SignUpPresenterImpl
+    lateinit var mAuth: FirebaseAuth
+
+    @InjectPresenter
+    lateinit var mPresenter: SignUpPresenter
+
+    @ProvidePresenter
+    fun provideLoginPresenter(): SignUpPresenter {
+        return SignUpPresenter(mAuth)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         App.appComponent.inject(this)
+        super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        lifecycle.addObserver(mPresenter)
-        mPresenter.attachView(this)
 
         binding.btnSignUp.setOnClickListener {
             val email = binding.edEmail.text.toString().trim()
@@ -36,7 +43,7 @@ class SignUpActivity : AppCompatActivity(), SignUpView {
         }
     }
 
-    // Show success toast and go to SignInActivity
+    // Show success toast and go to LoginActivity
     override fun showSignUpSuccess() {
         Toast.makeText(this, R.string.sign_up_successful,
             Toast.LENGTH_SHORT).show()
@@ -59,9 +66,5 @@ class SignUpActivity : AppCompatActivity(), SignUpView {
     override fun showConfirmedPasswordError() {
         Toast.makeText(this, R.string.password_mismatch,
             Toast.LENGTH_SHORT).show()
-    }
-
-    override fun getContext(): Context {
-        return this
     }
 }
