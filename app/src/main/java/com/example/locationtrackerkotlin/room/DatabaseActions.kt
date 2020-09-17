@@ -63,7 +63,7 @@ class DatabaseActions {
     // Insert current UserLocation instance to db
     suspend fun insertToDatabase(latitude: Double, longitude: Double) {
         val userLocation = UserLocation(
-            0,
+            Constants.USER_ID,
             mAuth.currentUser?.email,
             latitude,
             longitude,

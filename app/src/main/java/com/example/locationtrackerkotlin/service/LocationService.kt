@@ -49,8 +49,11 @@ class LocationService(
             App.context.getString(R.string.notification_channel_name)
         private val LOCATION_CHANNEL_DESCRIPTION =
             App.context.getString(R.string.location_channel_description)
-        private const val INTERVAL: Long = 1000 * 60 * 15 // 15 min
-        private const val FASTEST_INTERVAL: Long = 1000 * 60 * 10 // 10 min
+        private const val FLAGS = 0
+        private const val REQUEST_CODE = 0
+        private const val NOTIFICATION_ID = 1
+        private const val INTERVAL: Long = 1000 * 1 * 15 // 15 min
+        private const val FASTEST_INTERVAL: Long = 1000 * 1 * 10 // 10 min
     }
 
     private lateinit var mLocationCallback: LocationCallback
@@ -71,7 +74,7 @@ class LocationService(
         App.appComponent.inject(this)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun startWork(): ListenableFuture<Result> {
 
         return CallbackToFutureAdapter.getFuture {
@@ -158,7 +161,7 @@ class LocationService(
         }
 
         val pendingIntent = PendingIntent
-            .getActivity(applicationContext, 0, Intent(), 0)
+            .getActivity(applicationContext, REQUEST_CODE, Intent(), FLAGS)
 
         val builder = Notification.Builder(
             applicationContext,
@@ -178,9 +181,10 @@ class LocationService(
                 it.flags = Notification.FLAG_NO_CLEAR
             }
 
-        return ForegroundInfo(1, notification)
+        return ForegroundInfo(NOTIFICATION_ID, notification)
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun requestLocationUpdates() {
         // Set the setting for location request
         mLocationRequest.apply {

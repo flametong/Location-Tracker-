@@ -86,6 +86,7 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
     }
 
     // Show alert with request location permissions
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun requestLocationPermission() {
         if (Constants.CURRENT_VERSION < Constants.VERSION_Q) {
             if (!ActivityCompat.shouldShowRequestPermissionRationale(
