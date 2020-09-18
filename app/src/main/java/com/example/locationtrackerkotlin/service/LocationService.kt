@@ -43,17 +43,14 @@ class LocationService(
 
     companion object {
         private val TAG = LocationService::class.simpleName
-        private val NOTIFICATION_CHANNEL_ID =
-            App.context.getString(R.string.notification_channel_id)
-        private val NOTIFICATION_CHANNEL_NAME =
-            App.context.getString(R.string.notification_channel_name)
-        private val LOCATION_CHANNEL_DESCRIPTION =
-            App.context.getString(R.string.location_channel_description)
+        private const val NOTIFICATION_CHANNEL_ID = "LocationBackground"
+        private const val NOTIFICATION_CHANNEL_NAME = "Notification channel name"
+        private const val LOCATION_CHANNEL_DESCRIPTION = "Location Service notifications channel"
         private const val FLAGS = 0
         private const val REQUEST_CODE = 0
         private const val NOTIFICATION_ID = 1
-        private const val INTERVAL: Long = 1000 * 1 * 15 // 15 min
-        private const val FASTEST_INTERVAL: Long = 1000 * 1 * 10 // 10 min
+        private const val INTERVAL: Long = 1000 * 15 * 15 // 15 min
+        private const val FASTEST_INTERVAL: Long = 1000 * 10 * 10 // 10 min
     }
 
     private lateinit var mLocationCallback: LocationCallback

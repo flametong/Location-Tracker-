@@ -3,15 +3,19 @@ package com.example.locationtrackerkotlin.util
 import android.Manifest
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.example.locationtrackerkotlin.App
-import com.example.locationtrackerkotlin.R
 
 object Constants {
-    val LOCATIONS = App.context.getString(R.string.locations)
-    val REQUEST_TAG = App.context.getString(R.string.request_tag)
-    val DIALOG_TAG = App.context.getString(R.string.dialog_tag)
-    val DATABASE_NAME = App.context.getString(R.string.database_name)
-    val UNIQUE_LOCATION_WORK = App.context.getString(R.string.unique_location_work)
+    const val LOCATIONS = "locations"
+    const val REQUEST_TAG = "LOCATION_REQUEST"
+    const val DIALOG_TAG = "REQUEST_LOCATION_DIALOG"
+    const val DATABASE_NAME = "UserLocation.db"
+    const val UNIQUE_LOCATION_WORK = "UniqueLocationWork"
+    const val TABLE_NAME = "UserLocation"
+    const val USER_ID_DB = "userId"
+    const val USER_EMAIL = "userEmail"
+    const val LATITUDE = "latitude"
+    const val LONGITUDE = "longitude"
+    const val TIME_IN_MILLIS = "timeInMillis"
     const val ACCESS_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
     @RequiresApi(Build.VERSION_CODES.Q)
     const val ACCESS_BACKGROUND_LOCATION = Manifest.permission.ACCESS_BACKGROUND_LOCATION

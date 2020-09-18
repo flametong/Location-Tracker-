@@ -29,12 +29,4 @@
     <string name="location_service">Location service</string>
     <string name="location_tracker_is_working">Location tracker is working</string>
     <string name="ticker_text">Ticker text</string>
-    <string name="location_channel_description">Location Service notifications channel</string>
-    <string name="notification_channel_id">LocationBackground</string>
-    <string name="notification_channel_name">Notification channel name</string>
-    <string name="locations">locations</string>
-    <string name="request_tag">LOCATION_REQUEST</string>
-    <string name="dialog_tag">REQUEST_LOCATION_DIALOG</string>
-    <string name="database_name">UserLocation.db</string>
-    <string name="unique_location_work">UniqueLocationWork</string>
 </resources>
