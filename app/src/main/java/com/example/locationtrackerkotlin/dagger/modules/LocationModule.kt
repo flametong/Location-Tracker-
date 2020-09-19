@@ -13,14 +13,12 @@ class LocationModule {
 
     @Provides
     @Singleton
-    fun provideLocationClient(): FusedLocationProviderClient {
-        return LocationServices
-            .getFusedLocationProviderClient(App.context)
-    }
+    fun provideLocationClient(): FusedLocationProviderClient =
+        LocationServices.getFusedLocationProviderClient(App.context)
+
 
     @Provides
     @Singleton
-    fun provideLocationRequest(): LocationRequest {
-        return LocationRequest()
-    }
+    fun provideLocationRequest(): LocationRequest = LocationRequest()
+
 }
