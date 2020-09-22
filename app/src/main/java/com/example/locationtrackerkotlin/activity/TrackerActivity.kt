@@ -9,7 +9,7 @@ import com.example.locationtrackerkotlin.App
 import com.example.locationtrackerkotlin.R
 import com.example.locationtrackerkotlin.databinding.ActivityTrackerBinding
 import com.example.locationtrackerkotlin.dialog.LocationRequestDialog
-import com.example.locationtrackerkotlin.mvp.presenter.TrackerPresenterImpl
+import com.example.locationtrackerkotlin.mvp.presenter.TrackerPresenter
 import com.example.locationtrackerkotlin.mvp.view.TrackerView
 import com.example.locationtrackerkotlin.util.Constants
 import com.google.firebase.auth.FirebaseAuth
@@ -26,11 +26,11 @@ class TrackerActivity : MvpAppCompatActivity(), TrackerView {
     lateinit var mAuth: FirebaseAuth
 
     @InjectPresenter
-    lateinit var mPresenter: TrackerPresenterImpl
+    lateinit var mPresenter: TrackerPresenter
 
     @ProvidePresenter
-    fun provideTrackerPresenter(): TrackerPresenterImpl {
-        return TrackerPresenterImpl(mAuth)
+    fun provideTrackerPresenter(): TrackerPresenter {
+        return TrackerPresenter(mAuth)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

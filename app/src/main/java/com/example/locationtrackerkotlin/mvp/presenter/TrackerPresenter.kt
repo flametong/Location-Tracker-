@@ -10,7 +10,7 @@ import moxy.InjectViewState
 import moxy.MvpPresenter
 
 @InjectViewState
-class TrackerPresenterImpl(private val mAuth: FirebaseAuth) : MvpPresenter<TrackerView>() {
+class TrackerPresenter(private val mAuth: FirebaseAuth) : MvpPresenter<TrackerView>() {
 
     private var mModel = LocationServiceModel()
 
