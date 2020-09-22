@@ -1,16 +1,17 @@
 package com.example.locationtrackerkotlin.activity
 
+import android.Manifest
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
 import com.example.locationtrackerkotlin.App
 import com.example.locationtrackerkotlin.R
 import com.example.locationtrackerkotlin.databinding.ActivityLoginBinding
 import com.example.locationtrackerkotlin.mvp.presenter.LoginPresenter
 import com.example.locationtrackerkotlin.mvp.view.LoginView
+import com.example.locationtrackerkotlin.util.PermissionsHandler
 import com.example.locationtrackerkotlin.util.Constants
 import com.google.firebase.auth.FirebaseAuth
 import moxy.MvpAppCompatActivity
@@ -21,6 +22,7 @@ import javax.inject.Inject
 class LoginActivity : MvpAppCompatActivity(), LoginView {
 
     private lateinit var binding: ActivityLoginBinding
+    private val permissionsHandler = PermissionsHandler()
 
     @Inject
     lateinit var mAuth: FirebaseAuth
@@ -36,19 +38,23 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
     override fun onCreate(savedInstanceState: Bundle?) {
         App.appComponent.inject(this)
         super.onCreate(savedInstanceState)
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        // Try to log in button
-        binding.btnLogin.setOnClickListener {
-            val email = binding.edEmail.text.toString().trim()
-            val password = binding.edPassword.text.toString().trim()
-            mPresenter.signIn(email, password)
-        }
+        binding.apply {
+            setContentView(root)
 
-        // Go to SignUpActivity
-        binding.btnSignUp.setOnClickListener {
-            startActivity(Intent(baseContext, SignUpActivity::class.java))
+            // Try to log in button
+            btnLogin.setOnClickListener {
+                val email = edEmail.text.toString().trim()
+                val password = edPassword.text.toString().trim()
+                mPresenter.signIn(email, password)
+            }
+
+            // Go to SignUpActivity
+            btnSignUp.setOnClickListener {
+                startActivity(Intent(baseContext, SignUpActivity::class.java))
+            }
         }
     }
 
@@ -56,7 +62,27 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onStart() {
         super.onStart()
-        mPresenter.getLocationPermission(context = this)
+        val isHaveLocationPermission =
+            permissionsHandler.checkHasPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+
+        if (!isHaveLocationPermission) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                permissionsHandler.requestPermission(
+                    this, arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ),
+                    Constants.PERMISSION_REQUEST_LOCATION
+                )
+            } else {
+                permissionsHandler.requestPermission(
+                    this, arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+                    ),
+                    Constants.PERMISSION_REQUEST_LOCATION
+                )
+            }
+        }
     }
 
     // Show success toast and start tracker activity
@@ -83,38 +109,5 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
             this, R.string.validate_error,
             Toast.LENGTH_SHORT
         ).show()
-    }
-
-    // Show alert with request location permissions
-    @RequiresApi(Build.VERSION_CODES.Q)
-    override fun requestLocationPermission() {
-        if (Constants.CURRENT_VERSION < Constants.VERSION_Q) {
-            if (!ActivityCompat.shouldShowRequestPermissionRationale(
-                    this, Constants.ACCESS_FINE_LOCATION
-                )
-            ) {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(
-                        Constants.ACCESS_FINE_LOCATION
-                    ),
-                    LoginPresenter.PERMISSION_REQUEST_LOCATION
-                )
-            }
-        } else {
-            if (!ActivityCompat.shouldShowRequestPermissionRationale(
-                    this, Constants.ACCESS_FINE_LOCATION
-                )
-            ) {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(
-                        Constants.ACCESS_FINE_LOCATION,
-                        Constants.ACCESS_BACKGROUND_LOCATION
-                    ),
-                    LoginPresenter.PERMISSION_REQUEST_LOCATION
-                )
-            }
-        }
     }
 }

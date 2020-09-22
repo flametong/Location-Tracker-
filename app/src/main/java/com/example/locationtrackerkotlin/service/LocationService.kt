@@ -1,19 +1,18 @@
 package com.example.locationtrackerkotlin.service
 
+import android.Manifest
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Looper
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.concurrent.futures.CallbackToFutureAdapter
-import androidx.core.content.ContextCompat
 import androidx.work.ForegroundInfo
 import androidx.work.ListenableWorker
 import androidx.work.WorkerParameters
@@ -22,6 +21,7 @@ import com.example.locationtrackerkotlin.R
 import com.example.locationtrackerkotlin.room.DatabaseActions
 import com.example.locationtrackerkotlin.util.CheckNetwork
 import com.example.locationtrackerkotlin.util.Constants
+import com.example.locationtrackerkotlin.util.PermissionsHandler
 import com.example.locationtrackerkotlin.util.Variables
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -29,7 +29,6 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -49,10 +48,11 @@ class LocationService(
         private const val FLAGS = 0
         private const val REQUEST_CODE = 0
         private const val NOTIFICATION_ID = 1
-        private const val INTERVAL: Long = 1000 * 60 * 15 // 15 min
-        private const val FASTEST_INTERVAL: Long = 1000 * 60 * 10 // 10 min
+        private const val INTERVAL: Long = 1000 * 1 * 15 // 15 min
+        private const val FASTEST_INTERVAL: Long = 1000 * 1 * 10 // 10 min
     }
 
+    private val permissionsHandler = PermissionsHandler()
     private lateinit var mLocationCallback: LocationCallback
 
     @Inject
@@ -181,7 +181,6 @@ class LocationService(
         return ForegroundInfo(NOTIFICATION_ID, notification)
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     private fun requestLocationUpdates() {
         // Set the setting for location request
         mLocationRequest.apply {
@@ -190,18 +189,13 @@ class LocationService(
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
 
+        val isHaveLocationPermission = permissionsHandler.checkHasPermission(
+            applicationContext,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
+
         // Check location permissions
-        if (ContextCompat.checkSelfPermission(
-                applicationContext,
-                Constants.ACCESS_FINE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
-            || ContextCompat.checkSelfPermission(
-                applicationContext,
-                Constants.ACCESS_BACKGROUND_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED
-        ) {
+        if (isHaveLocationPermission) {
             // Request location updates and when an update is
             // received, store the location in Firebase
             mLocationProviderClient.requestLocationUpdates(

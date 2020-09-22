@@ -38,21 +38,24 @@ class TrackerActivity : MvpAppCompatActivity(), TrackerView {
         super.onCreate(savedInstanceState)
 
         binding = ActivityTrackerBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        // Start location tracker
-        binding.btnLaunchTracker.setOnClickListener {
-            mPresenter.launchService()
-        }
+        binding.apply {
+            setContentView(root)
 
-        // Stop location tracker
-        binding.btnStopTracker.setOnClickListener {
-            mPresenter.stopService()
-        }
+            // Start location tracker
+            btnLaunchTracker.setOnClickListener {
+                mPresenter.launchService()
+            }
 
-        // Sign out and stop location tracker
-        binding.btnSignOut.setOnClickListener {
-            mPresenter.signOutUser()
+            // Stop location tracker
+            btnStopTracker.setOnClickListener {
+                mPresenter.stopService()
+            }
+
+            // Sign out and stop location tracker
+            btnSignOut.setOnClickListener {
+                mPresenter.signOutUser()
+            }
         }
     }
 

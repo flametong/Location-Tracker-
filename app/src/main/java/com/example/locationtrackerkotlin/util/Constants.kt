@@ -1,9 +1,5 @@
 package com.example.locationtrackerkotlin.util
 
-import android.Manifest
-import android.os.Build
-import androidx.annotation.RequiresApi
-
 object Constants {
     const val LOCATIONS = "locations"
     const val REQUEST_TAG = "LOCATION_REQUEST"
@@ -16,10 +12,6 @@ object Constants {
     const val LATITUDE = "latitude"
     const val LONGITUDE = "longitude"
     const val TIME_IN_MILLIS = "timeInMillis"
-    const val ACCESS_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
-    @RequiresApi(Build.VERSION_CODES.Q)
-    const val ACCESS_BACKGROUND_LOCATION = Manifest.permission.ACCESS_BACKGROUND_LOCATION
-    val CURRENT_VERSION = Build.VERSION.SDK_INT
-    const val VERSION_Q = Build.VERSION_CODES.Q
     const val USER_ID = 0L
+    const val PERMISSION_REQUEST_LOCATION = 1
 }

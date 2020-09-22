@@ -1,7 +1,5 @@
 package com.example.locationtrackerkotlin.mvp.presenter
 
-import android.text.TextUtils
-import android.util.Log
 import com.example.locationtrackerkotlin.mvp.view.SignUpView
 import com.google.firebase.auth.FirebaseAuth
 import moxy.InjectViewState
@@ -15,9 +13,9 @@ class SignUpPresenter(private val mAuth: FirebaseAuth) : MvpPresenter<SignUpView
         password: String,
         confirmedPassword: String
     ) {
-        if (TextUtils.isEmpty(email)
-            || TextUtils.isEmpty(password)
-            || TextUtils.isEmpty(confirmedPassword)
+        if (email.isEmpty()
+            || password.isEmpty()
+            || confirmedPassword.isEmpty()
         ) {
             viewState.showValidateError()
         } else {

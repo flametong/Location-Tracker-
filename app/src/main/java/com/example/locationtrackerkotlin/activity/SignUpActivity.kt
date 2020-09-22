@@ -33,13 +33,16 @@ class SignUpActivity : MvpAppCompatActivity(), SignUpView {
         App.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        binding.btnSignUp.setOnClickListener {
-            val email = binding.edEmail.text.toString().trim()
-            val password = binding.edPassword.text.toString().trim()
-            val confirmedPassword = binding.edConfirmPassword.text.toString().trim()
-            mPresenter.signUpUser(email, password, confirmedPassword)
+        binding.apply {
+            setContentView(root)
+
+            btnSignUp.setOnClickListener {
+                val email = edEmail.text.toString().trim()
+                val password = edPassword.text.toString().trim()
+                val confirmedPassword = edConfirmPassword.text.toString().trim()
+                mPresenter.signUpUser(email, password, confirmedPassword)
+            }
         }
     }
 

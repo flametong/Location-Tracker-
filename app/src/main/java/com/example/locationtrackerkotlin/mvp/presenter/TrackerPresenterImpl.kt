@@ -1,6 +1,6 @@
 package com.example.locationtrackerkotlin.mvp.presenter
 
-import com.example.locationtrackerkotlin.mvp.model.LocationServiceModelImpl
+import com.example.locationtrackerkotlin.mvp.model.LocationServiceModel
 import com.example.locationtrackerkotlin.mvp.view.TrackerView
 import com.example.locationtrackerkotlin.util.Constants
 import com.example.locationtrackerkotlin.util.Util
@@ -12,7 +12,7 @@ import moxy.MvpPresenter
 @InjectViewState
 class TrackerPresenterImpl(private val mAuth: FirebaseAuth) : MvpPresenter<TrackerView>() {
 
-    private var mModel = LocationServiceModelImpl()
+    private var mModel = LocationServiceModel()
 
     fun requestLocationDialog() {
         viewState.showRequestLocationDialog()

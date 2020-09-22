@@ -9,5 +9,4 @@ interface LoginView : MvpView {
     fun showSignInSuccess()
     fun showSignInError()
     fun showValidateError()
-    fun requestLocationPermission()
 }
