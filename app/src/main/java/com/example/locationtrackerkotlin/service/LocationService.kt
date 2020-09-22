@@ -48,8 +48,8 @@ class LocationService(
         private const val FLAGS = 0
         private const val REQUEST_CODE = 0
         private const val NOTIFICATION_ID = 1
-        private const val INTERVAL: Long = 1000 * 1 * 15 // 15 min
-        private const val FASTEST_INTERVAL: Long = 1000 * 1 * 10 // 10 min
+        private const val INTERVAL: Long = 1000 * 60 * 15 // 15 min
+        private const val FASTEST_INTERVAL: Long = 1000 * 60 * 10 // 10 min
     }
 
     private val permissionsHandler = PermissionsHandler()
