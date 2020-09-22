@@ -22,4 +22,8 @@ class LoginPresenter(private val mAuth: FirebaseAuth) : MvpPresenter<LoginView>(
                 }
         }
     }
+
+    fun provideLocationPermissions() {
+        viewState.requestLocationPermissions()
+    }
 }

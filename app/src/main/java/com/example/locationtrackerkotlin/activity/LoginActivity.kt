@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import com.example.locationtrackerkotlin.App
 import com.example.locationtrackerkotlin.R
 import com.example.locationtrackerkotlin.databinding.ActivityLoginBinding
@@ -58,31 +57,9 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
         }
     }
 
-    // Get background location permission
-    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onStart() {
         super.onStart()
-        val isHaveLocationPermission =
-            permissionsHandler.checkHasPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-
-        if (!isHaveLocationPermission) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                permissionsHandler.requestPermission(
-                    this, arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    ),
-                    Constants.PERMISSION_REQUEST_LOCATION
-                )
-            } else {
-                permissionsHandler.requestPermission(
-                    this, arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-                    ),
-                    Constants.PERMISSION_REQUEST_LOCATION
-                )
-            }
-        }
+        mPresenter.provideLocationPermissions()
     }
 
     // Show success toast and start tracker activity
@@ -109,5 +86,30 @@ class LoginActivity : MvpAppCompatActivity(), LoginView {
             this, R.string.validate_error,
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+    // Get background location permission
+    override fun requestLocationPermissions() {
+        val isHaveLocationPermission =
+            permissionsHandler.checkHasPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+
+        if (!isHaveLocationPermission) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                permissionsHandler.requestPermission(
+                    this, arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ),
+                    Constants.PERMISSION_REQUEST_LOCATION
+                )
+            } else {
+                permissionsHandler.requestPermission(
+                    this, arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+                    ),
+                    Constants.PERMISSION_REQUEST_LOCATION
+                )
+            }
+        }
     }
 }
